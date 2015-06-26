@@ -1,0 +1,10 @@
+body {
+    background-color: #ddd;
+}
+
+.Example {
+    margin: 0 auto;
+    padding: 36px 48px;
+
+    background-color: #fff;
+}

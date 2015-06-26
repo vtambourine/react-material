@@ -1,0 +1,36 @@
+.ToggleButton {
+    display: inline-block;
+}
+
+.ToggleButton-container {
+    position: relative;
+
+    width: 36px;
+    height: 14px;
+}
+
+.ToggleButton-bar {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 8px;
+    background-color: #35F;
+}
+
+.ToggleButton-button {
+    position: absolute;
+    top: -3px;
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50%;
+    background-color: #f00;
+    cursor: pointer;
+}
+
+.ToggleButton._checked .ToggleButton-button {
+    transform: translate(16px, 0);
+}
