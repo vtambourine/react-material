@@ -1,4 +1,14 @@
-import React from 'react';
-import Example from './Example';
+import React, {Component} from 'react';
+import Button from 'Button';
 
-React.render(<Example />, document.getElementById('example'));
+class Example extends Component {
+    render() {
+        return (
+            <div className="Example">
+                <Button>Button</Button>
+            </div>
+        );
+    }
+}
+
+export default Example;

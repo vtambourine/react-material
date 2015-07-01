@@ -1,13 +1,16 @@
 <html>
 <head>
-  <title>React Material Button</title>
-  <link rel="stylesheet" href="../../index.css" />
+    <title>React Material Button</title>
 </head>
 <body>
-  <div id='example'></div>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react-with-addons.min.js"></script>
+    <div id='example'></div>
+    <script src="http://localhost:8080/webpack-dev-server.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react-with-addons.min.js"></script>
     {% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
-        <script src="{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}"></script>
+    <script src="{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}"></script>
     {% } %}
+    <script type="text/javascript">
+        React.render(React.createElement(Example), document.getElementById('example'));
+    </script>
 </body>
 </html>

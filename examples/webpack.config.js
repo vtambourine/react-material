@@ -18,6 +18,7 @@ var exampleEntries = fs.readdirSync(PAGES_DIR).reduce(function (result, file) {
         }));
 
         result[file] = [
+            './examples/index.js',
             path.join(PAGES_DIR, file, 'index.js'),
             // INDEX_HTML
         ];
