@@ -10,7 +10,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var PAGES_DIR = path.join(__dirname, 'examples/pages');
 
-var INDEX_HTML = path.join(__dirname, 'examples/index.html');
+var INDEX_HTML = path.join(__dirname, 'examples/template.html');
 
 var pages = fs.readdirSync(PAGES_DIR).filter(function (file) {
     return fs.statSync(path.join(PAGES_DIR, file)).isDirectory();
