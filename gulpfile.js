@@ -42,7 +42,7 @@ var webpackConfig = {
     },
 
     resolve: {
-        root: [path.join(__dirname, 'components')]
+        root: [__dirname]
     },
     externals: [
         {'react': 'var React'}
@@ -63,7 +63,12 @@ var webpackConfig = {
     }
 }
 
-gulp.task('build', function(done) {
+gulp.task('assets', function() {
+    gulp.src('node_modules/react/dist/react.min.js')
+        .pipe(gulp.dest('build'));
+});
+
+gulp.task('build', ['assets'], function(done) {
     var compiler = webpack(webpackConfig);
     compiler.run(function (error, stats) {
         if (error) throw new gutil.PluginError('webpack', error);
@@ -75,11 +80,12 @@ gulp.task('build', function(done) {
     });
 });
 
-gulp.task('build:server', function () {
+gulp.task('build:server', ['assets'], function () {
     webpackConfig.output.publicPath = 'http://localhost:8080/';
     webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
     var compiler = webpack(webpackConfig);
     new WebpackDevServer(compiler, {
+        contentBase: 'build/',
         hot: true,
         quiet: true,
         noInfo: false,

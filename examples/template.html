@@ -1,6 +1,7 @@
 <html>
 <head>
     <title>React Material Button</title>
+    <meta charset="utf-8"/>
     <style>
         html,
         body {
@@ -13,7 +14,7 @@
 <body>
     <div id='example'></div>
     <script src="http://localhost:8080/webpack-dev-server.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react-with-addons.min.js"></script>
+    <script type="text/javascript" src="/react.min.js"></script>
     {% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
     <script src="{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}"></script>
     {% } %}
