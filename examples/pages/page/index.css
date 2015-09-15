@@ -1,0 +1,11 @@
+.Example {
+    width: 540px;
+    margin: 0 auto;
+    padding: 36px 48px;
+
+    background-color: #fff;
+}
+
+.form-field {
+    padding: 8px 0;
+}
