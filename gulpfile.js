@@ -3,51 +3,28 @@ var path = require('path');
 var gulp = require('gulp');
 var del = require('del');
 var gutil = require('gulp-util');
-
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-var PAGES_DIR = path.join(__dirname, 'examples/pages');
-
-var INDEX_HTML = path.join(__dirname, 'examples/template.html');
-
-var pages = fs.readdirSync(PAGES_DIR).filter(function (file) {
-    return fs.statSync(path.join(PAGES_DIR, file)).isDirectory();
-});
-
-var entries = pages.reduce(function (result, file) {
-    result[file] = [
-        'webpack/hot/dev-server',
-        path.join(PAGES_DIR, file, 'index.js'),
-    ];
-    return result;
-}, {});
-
-var templatePlugins = pages.map(function (folder) {
-    return new HtmlWebpackPlugin({
-        filename: folder + '/index.html',
-        template: INDEX_HTML,
-        chunks: [folder]
-    });
-});
+var OUTPUT_DIR = path.join(__dirname, 'build');
 
 var webpackConfig = {
-    entry: entries,
+    entry: [
+        path.join(__dirname, 'examples/index.js')
+    ],
     output: {
-        library: 'Example',
-        filename: '[name]/index.js',
-        path: path.join(__dirname, 'build/'),
-        publicPath: path.join(__dirname, 'build/')
+        filename: 'index.js',
+        path: OUTPUT_DIR,
+        // publicPath: path.join(__dirname, 'build/')
     },
-
     resolve: {
-        root: [__dirname]
+        root: [
+            path.join(__dirname, 'components')
+        ]
     },
     externals: [
         {'react': 'var React'}
     ],
-    plugins: templatePlugins,
     module: {
         loaders: [
             {
@@ -58,13 +35,25 @@ var webpackConfig = {
             {
                 test: /\.css$/,
                 loaders: ['style', 'css']
+            },
+            {
+                test: /\.scss$/,
+                loaders: ['style', 'css', 'sass']
             }
         ]
-    }
+    },
+    plugins: []
 }
 
 gulp.task('assets', function() {
-    gulp.src('node_modules/react/dist/react.min.js')
+    var assets = [
+        'public/**/*',
+        'examples/index.html',
+        'node_modules/react/dist/react.min.js',
+        'node_modules/react/dist/react-dom.min.js'
+    ];
+
+    gulp.src(assets)
         .pipe(gulp.dest('build'));
 });
 
@@ -80,12 +69,14 @@ gulp.task('build', ['assets'], function(done) {
     });
 });
 
-gulp.task('build:server', ['assets'], function () {
+gulp.task('build:watch', ['assets'], function () {
+    webpackConfig.entry.unshift('webpack-dev-server/client?http://localhost:8080');
+    webpackConfig.entry.unshift('webpack/hot/dev-server');
     webpackConfig.output.publicPath = 'http://localhost:8080/';
     webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
     var compiler = webpack(webpackConfig);
     new WebpackDevServer(compiler, {
-        contentBase: 'build/',
+        contentBase: OUTPUT_DIR,
         hot: true,
         quiet: true,
         noInfo: false,

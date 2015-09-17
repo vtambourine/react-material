@@ -1,0 +1,44 @@
+@import 'node_modules/normalize.css/normalize';
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    font: 14px/1.4 'Helvetica Neue', Helvetica, Arial;
+    min-height: 100%;
+    background-color: #fdfdfd;
+}
+
+.Page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 120px 30px;
+
+    &--body {
+
+    }
+}
+
+.Example {
+    &--example {
+        margin-top: 1em;
+        padding: 2em;
+        border: 1px solid #ddd;
+        border-radius: 6px 6px 0 0;
+        background-color: #fff;
+    }
+
+    &--code {
+        font-family: monospace;
+        padding: 2em;
+        border: 1px solid #ddd;
+        border-top: none;
+        border-radius: 0 0 6px 6px;
+        color: #333;
+        background-color: #dedede;
+    }
+}
